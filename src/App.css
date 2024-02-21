@@ -23,9 +23,14 @@ input {
     width: 250px;
 
     background-color: #f0cac4;
-    outline: none;
+    outline-color: #a57f77;
+    font-weight: 600;
 
     border: none;
+}
+
+span {
+    font-weight: 700;
 }
 
 .App {
@@ -35,13 +40,18 @@ input {
     align-items: center;
 }
 
+.loader {
+    font-weight: 700;
+    font-size: 20px;
+}
+
 .home_container {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    width: 1140px;
-    border: 3px double black;
+    width: 1200px;
+    border: 6px double #a57f77;
 
     padding: 40px;
 }
@@ -57,7 +67,9 @@ input {
 }
 
 .cell_image {
-    width: 50px;
+    text-transform: uppercase;
+    font-size: 80px;
+    margin: 0;
 }
 
 .weather_cells-container {
@@ -67,9 +79,21 @@ input {
 }
 
 .cell {
+    border-radius: 5px;
+    padding: 0 15px;
+
     margin-bottom: 10px;
     margin-left: 20px;
 
     width: 120px;
     background-color: #f0cac4;
+}
+
+.cell:first-child {
+    margin-left: 0;
+}
+
+.temperature {
+    font-weight: 500;
+    font-size: 18px;
 }
