@@ -31,7 +31,7 @@ const SearchCityWeather = ({ setDisplayLocation, setIsLoading, setWeather }) => 
 
     return (
         <>
-            <h1 className='home_title'>Classy Weather</h1>
+            <h1 className='home_title'>Weather forecast</h1>
             <input
                 className='form_find-city'
                 type="text"
