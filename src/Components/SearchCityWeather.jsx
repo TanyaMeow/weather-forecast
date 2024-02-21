@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
 const SearchCityWeather = ({ setDisplayLocation, setIsLoading, setWeather }) => {
-    const [location, setLocation] = useState('Lisbon');
+    const [location, setLocation] = useState(localStorage.getItem('location'));
 
     async function weatherSelection() {
         try {
@@ -29,6 +29,11 @@ const SearchCityWeather = ({ setDisplayLocation, setIsLoading, setWeather }) => 
         }
     }
 
+    useEffect(() => {
+        weatherSelection().then(r => r);
+        localStorage.setItem('location', location);
+    }, [location]);
+
     return (
         <>
             <h1 className='home_title'>Weather forecast</h1>
@@ -39,7 +44,6 @@ const SearchCityWeather = ({ setDisplayLocation, setIsLoading, setWeather }) => 
                 value={location}
                 onChange={e => setLocation(e.target.value)}
             />
-            <button onClick={weatherSelection}>Get weather</button>
         </>
     )
 };
