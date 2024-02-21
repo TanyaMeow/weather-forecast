@@ -1,15 +1,28 @@
 import WeatherForecastCell from "./WeatherForecastCell";
-import {weathers} from "../data/weather";
+import Weather from "../Class/Weather";
 
-const WeatherForecastTable = () => {
+const WeatherForecastTable = ({ time, weather_code, temperature_2m_max, temperature_2m_min, location }) => {
+    const weathers = [];
+
+    for (let i = 0; i < time.length; i++) {
+        const max = Math.round(temperature_2m_max[i]);
+        const min = Math.round(temperature_2m_min[i]);
+
+        weathers.push(new Weather(max, min, time[i], weather_code[i]));
+    }
+
     return (
         <div className='weather_table-container'>
-            <h1 className='weather_table-title'>Weather Berlin</h1>
+            <h1 className='weather_table-title'>Weather {location}</h1>
+
             <div className='weather_cells-container'>
                 {
-                    weathers.map((weather) => (
-                        <WeatherForecastCell {...weather}
-                                             key={weather.id}/>
+                    weathers.map((weather, index) => (
+                        <WeatherForecastCell
+                            {...weather}
+                            isToday={index === 0}
+                            key={index}
+                        />
                     ))
                 }
             </div>
