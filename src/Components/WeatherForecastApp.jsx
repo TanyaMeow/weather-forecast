@@ -24,7 +24,7 @@ const WeatherForecastApp = () => {
                 <div className='weather_forecast-block'>
                     <WeatherForecastTable
                         {...weather}
-                        location={displayLocation}
+                        displayLocation={displayLocation}
                     />
                 </div>
             }
