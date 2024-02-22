@@ -1,20 +1,26 @@
 import WeatherForecastCell from "./WeatherForecastCell";
 
-import Weather from "../Class/Weather";
-
-const WeatherForecastTable = ({ time, weather_code, temperature_2m_max, temperature_2m_min, displayLocation }) => {
+const createWeather =  (time, weather_code, temperature_2m_max, temperature_2m_min) => {
     const weathers = [];
 
     for (let i = 0; i < time.length; i++) {
-        weathers.push(new Weather(
-            Math.floor(temperature_2m_max[i]),
-            Math.ceil(temperature_2m_min[i]),
-            new Intl.DateTimeFormat("en", {
-                weekday: 'long'
-            }).format(new Date(time[i])),
-            weather_code[i])
+        weathers.push(
+            {
+                temperatureMax: Math.floor(temperature_2m_max[i]),
+                temperatureMin: Math.ceil(temperature_2m_min[i]),
+                date: new Intl.DateTimeFormat("en", {
+                    weekday: 'long'
+                }).format(new Date(time[i])),
+                code: weather_code[i]
+            }
         );
     }
+
+    return weathers;
+}
+
+const WeatherForecastTable = ({ time, weather_code, temperature_2m_max, temperature_2m_min, displayLocation }) => {
+    const weathers = createWeather(time, weather_code, temperature_2m_max, temperature_2m_min)
 
     return (
         <div className='weather_table-container'>

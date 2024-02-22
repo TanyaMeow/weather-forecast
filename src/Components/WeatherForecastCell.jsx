@@ -9,7 +9,7 @@ function getWeatherIcon(code) {
         [[53, 55, 57, 63, 65, 67, 81, 82], "🌧️"],
         [[71, 73, 75, 77, 85, 86], "🌨️"],
         [[95], "🌩️"],
-        [[96, 99], "⛈️"],
+        [[96, 99], "⛈️"]
     ]);
 
     const foundIcon = [...icons.keys()].find((key) => key.includes(code));

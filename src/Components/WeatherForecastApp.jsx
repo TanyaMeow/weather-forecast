@@ -15,12 +15,14 @@ const WeatherForecastApp = () => {
                 setIsLoading={setIsLoading}
                 setWeather={setWeather}
             />
+            <div className='loader_block'>
+                {isLoading &&
 
-            { isLoading &&
-                <p className='loader'>Loading...</p>
-            }
+                    <p className='loader'>Loading...</p>
+                }
+            </div>
 
-            { weather.weather_code &&
+            {weather.weather_code &&
                 <div className='weather_forecast-block'>
                     <WeatherForecastTable
                         {...weather}
