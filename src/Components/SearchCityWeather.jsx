@@ -1,19 +1,38 @@
+import React from "react";
 import {
+    useCallback,
     useEffect,
     useState
 } from "react";
 
 import axios from "axios";
 
+const useDebounce = (value, delay) => {
+    const [debouncedValue, setDebouncedValue] = React.useState(value);
+
+    React.useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [value]);
+
+    return debouncedValue;
+};
+
 const SearchCityWeather = ({ setDisplayLocation, setIsLoading, setWeather }) => {
     const [location, setLocation] = useState(localStorage.getItem('location'));
+    const lastLocation = useDebounce(location, 500);
 
-    async function weatherSelection() {
+    const weatherSelection = useCallback(async () => {
         try {
             setIsLoading(true);
 
             const geoData = await axios(
-                `https://geocoding-api.open-meteo.com/v1/search?name=${location}`
+                `https://geocoding-api.open-meteo.com/v1/search?name=${lastLocation}`
             )
                 .then((response) => response.data.results[0]);
 
@@ -31,13 +50,14 @@ const SearchCityWeather = ({ setDisplayLocation, setIsLoading, setWeather }) => 
         } finally {
             setIsLoading(false);
         }
-    }
+    }, [lastLocation]);
 
     useEffect(() => {
-        weatherSelection();
+        weatherSelection()
+            .then(r => r);
         
         localStorage.setItem('location', location);
-    }, [location]);
+    }, [lastLocation, weatherSelection]);
 
     return (
         <>
