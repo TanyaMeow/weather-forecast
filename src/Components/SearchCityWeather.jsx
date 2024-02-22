@@ -1,5 +1,9 @@
+import {
+    useEffect,
+    useState
+} from "react";
+
 import axios from "axios";
-import {useEffect, useState} from "react";
 
 const SearchCityWeather = ({ setDisplayLocation, setIsLoading, setWeather }) => {
     const [location, setLocation] = useState(localStorage.getItem('location'));
@@ -11,9 +15,9 @@ const SearchCityWeather = ({ setDisplayLocation, setIsLoading, setWeather }) => 
             const geoData = await axios(
                 `https://geocoding-api.open-meteo.com/v1/search?name=${location}`
             )
-                .then((response) => response.data.results);
+                .then((response) => response.data.results[0]);
 
-            const { latitude, longitude, timezone, name } = geoData[0];
+            const { latitude, longitude, timezone, name } = geoData;
             setDisplayLocation(name);
 
             const weatherData = await axios(
@@ -30,7 +34,8 @@ const SearchCityWeather = ({ setDisplayLocation, setIsLoading, setWeather }) => 
     }
 
     useEffect(() => {
-        weatherSelection().then(r => r);
+        weatherSelection();
+        
         localStorage.setItem('location', location);
     }, [location]);
 

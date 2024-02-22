@@ -1,10 +1,11 @@
+import WeatherForecastApp from "./Components/WeatherForecastApp";
+
 import './App.css';
-import HomeScreen from "./Components/HomeScreen";
 
 function App() {
   return (
     <div className="App">
-      <HomeScreen />
+      <WeatherForecastApp />
     </div>
   );
 }

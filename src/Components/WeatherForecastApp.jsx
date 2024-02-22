@@ -3,7 +3,7 @@ import {useState} from "react";
 import WeatherForecastTable from "./WeatherForecastTable";
 import SearchCityWeather from "./SearchCityWeather";
 
-const HomeScreen = () => {
+const WeatherForecastApp = () => {
     const [displayLocation, setDisplayLocation] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [weather, setWeather] = useState({});
@@ -16,19 +16,20 @@ const HomeScreen = () => {
                 setWeather={setWeather}
             />
 
-            {isLoading &&
+            { isLoading &&
                 <p className='loader'>Loading...</p>
             }
 
-            {weather?.weather_code &&
+            { weather.weather_code &&
                 <div className='weather_forecast-block'>
                     <WeatherForecastTable
                         {...weather}
                         location={displayLocation}
                     />
-                </div>}
+                </div>
+            }
         </div>
     )
 };
 
-export default HomeScreen;
+export default WeatherForecastApp;

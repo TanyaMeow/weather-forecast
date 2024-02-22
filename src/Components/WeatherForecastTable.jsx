@@ -1,14 +1,19 @@
 import WeatherForecastCell from "./WeatherForecastCell";
+
 import Weather from "../Class/Weather";
 
 const WeatherForecastTable = ({ time, weather_code, temperature_2m_max, temperature_2m_min, location }) => {
     const weathers = [];
 
     for (let i = 0; i < time.length; i++) {
-        const max = Math.round(temperature_2m_max[i]);
-        const min = Math.round(temperature_2m_min[i]);
-
-        weathers.push(new Weather(max, min, time[i], weather_code[i]));
+        weathers.push(new Weather(
+            Math.round(temperature_2m_max[i]),
+            Math.round(temperature_2m_min[i]),
+            new Intl.DateTimeFormat("en", {
+                weekday: 'long'
+            }).format(new Date(time[i])),
+            weather_code[i])
+        );
     }
 
     return (

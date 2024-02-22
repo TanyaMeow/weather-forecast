@@ -1,5 +1,5 @@
 function getWeatherIcon(code) {
-    const ICONS = new Map([
+    const icons = new Map([
         [[0], "☀️"],
         [[1], "🌤️"],
         [[2], "⛅️"],
@@ -12,22 +12,18 @@ function getWeatherIcon(code) {
         [[96, 99], "⛈️"],
     ]);
 
-    const foundIcon = [...ICONS.keys()].find((key) => key.includes(code));
-    return ICONS.get(foundIcon);
+    const foundIcon = [...icons.keys()].find((key) => key.includes(code));
+    return icons.get(foundIcon);
 }
 
-function formatDay(date) {
-    return new Intl.DateTimeFormat("en", {
-        weekday: 'long'
-    }).format(new Date(date));
-}
-
-const WeatherForecastCell = ({ time, temperatureMax, temperatureMin, code, isToday }) => {
+const WeatherForecastCell = ({ date, temperatureMax, temperatureMin, code, isToday }) => {
     return (
         <div className='cell'>
-            <p className='cell_image'>{getWeatherIcon(code)}</p>
-            <h3 className='cell_title'>{isToday ? 'Today' : formatDay(time)}</h3>
-            <p className='temperature'>{temperatureMin}° ― <span>{temperatureMax}°</span></p>
+            <p className='cell_image'>{ getWeatherIcon(code) }</p>
+            <h3 className='cell_title'>
+                { isToday ? 'Today' : date }
+            </h3>
+            <p className='temperature'>{ temperatureMin }° ― <span>{ temperatureMax }°</span></p>
         </div>
     )
 };
